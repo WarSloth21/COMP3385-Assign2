@@ -28,7 +28,8 @@ class LoginController extends PageController_Command_Abstract
     }
     //Else Show Login Page
     $v->setTemplate(TPL_DIR . '/login.tpl.php');
-    $this->makeView($v);
+	$this->makeView($v);
+	$this->model->notify();
  }
  // data was posted so we must do the following
 else {
@@ -40,7 +41,8 @@ else {
         $errors = $validator->getErrors();  // an array of strings
         $v->setTemplate(TPL_DIR . '/login.tpl.php');
         $v->addVar('errors', $errors);
-        $this->makeView($v);
+		$this->makeView($v);
+		$this->model->notify();
     }
 // 3. If the data is valid, check the database and go to next page
 else { 
@@ -48,7 +50,8 @@ else {
     {
          //$_SESSION["natl_id"] = $_POST['natl_id'];
         
-            header('Location:profile.tpl.php');
+			header('Location:profile.tpl.php');
+			$this->model->notify();
      
  }
 		

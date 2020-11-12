@@ -1,7 +1,7 @@
 <?php
 namespace Haa\framework;
 use app\handlers;
-
+use SessionManager;
 
 class FrontController extends FrontController_Abstract
 {
@@ -55,6 +55,8 @@ class FrontController extends FrontController_Abstract
          */
        // $test = $_GET['url'];
         //$action = $this->context->get('controller');
+        $session = new SessionManager();
+        $session->create();
         $test = $_REQUEST['controller'];
         if ($test == NULL)
         {
