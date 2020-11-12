@@ -10,7 +10,9 @@ abstract class Model_Abstract
 	
 	abstract public function findAll() : array;
 	
-	abstract public function findRecord(string $id) : array;
+	abstract public function find(string $tablename, array $fields);
+	
+	abstract public function findRecord(string $id) ;
 	
 	public function loadData(string $fromFile) : array
 	{

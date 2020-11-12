@@ -42,7 +42,7 @@ abstract class Observable_Model extends Model_Abstract implements Observable_Int
 	abstract public function findAll() : array;
 	
 	
-	abstract public function findRecord(string $id) : array;
+	abstract public function findRecord(string $id);
 	
 	
 	

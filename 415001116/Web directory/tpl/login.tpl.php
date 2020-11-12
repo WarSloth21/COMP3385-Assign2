@@ -20,12 +20,39 @@
 		   <div class="login-box">
 			<div class="login-box-body">
 			<p class="login-box-msg">Be Curious - Sign In</p>
-			<form action="#" method="post">
+			<form action=" " method="post">
+			<?php
+                if (isset($errors) && !empty($errors)): ?>
+                  <ul>
+                <?php
+                  foreach ($errors as $err_msg): ?>
+                     <li><?php echo $err_msg ?></li>
+                <?php 
+                  endforeach; ?>
+                  </ul>
+              <?php
+              endif; ?>
 			  <div class="form-group has-feedback">
-				<input type="text" class="form-control" placeholder="Email"/>
+			  <input id = "email" class="form-control" type = "email" placeholder="Email" name = "email" 
+                    value = "<?php if (isset($email)): echo $email; endif; ?>"
+                    <?php 
+                        if (isset($errors['email'])): ?>
+                            class = "err" 
+                        <?php endif; ?> > &nbsp;
+                        <span class = "result" id = "email">
+                        <?php if (isset($errors['email'])): echo $errors['email']; endif; ?></span>
+                            <br><br> &nbsp;
 			  </div>
 			  <div class="form-group has-feedback">
-				<input type="password" class="form-control" placeholder="Password"/>
+                    <input id = "psw" class="form-control" type = "password" placeholder="Password" name = "psw" 
+                    value = "<?php if (isset($psw)): echo $psw; endif; ?>"
+                    <?php 
+                    if (isset($errors['psw'])): ?>
+                            class = "err" 
+                    <?php endif; ?> > &nbsp;
+                    <span class = "result" id = "psw">
+                    <?php if (isset($errors['psw'])): echo $errors['psw']; endif; ?></span>
+                        <br><br> &nbsp;
 			  </div>
 			  <div class="row">
 				<div class="col-xs-8">    
@@ -36,7 +63,7 @@
 				  </div>                        
 				</div><!-- /.col -->
 				<div class="col-xs-4">
-				  <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+				  <button type="submit" id = "login" class="btn btn-primary btn-block btn-flat">Sign In</button>
 				</div><!-- /.col -->
 			  </div>
 			</form>

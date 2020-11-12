@@ -1,12 +1,17 @@
 <?php
-namespace Haa\framework;
-class ProfileController extends PageController_Abstract
+namespace app\handlers;
+use Haa\framework\CommandContext;
+use Haa\framework\PageController_Command_Abstract;
+use Haa\framework\View;
+use Haa\framework\SessionManager;
+
+class ProfileController extends PageController_Command_Abstract
 {
 	public function run()
 	{
-        SessionManager::create();
+        \SessionManager::create();
 
-        $sess = new SessionManager();
+        $sess = new \SessionManager();
         $sess->add('user','testuser');
         //$sess->remove('user');
 
@@ -15,8 +20,8 @@ class ProfileController extends PageController_Abstract
 		
 		
 		//Set Model and View
-		$this->setModel(new ProfileModel());
-		$this->setView($v);
+		$this->makeModel(new \ProfileModel());
+		$this->makeView($v);
 		
         $this->model->attach($this->view);
         
@@ -40,5 +45,11 @@ class ProfileController extends PageController_Abstract
 
 
 		
+    }
+    public function execute(CommandContext $context): bool
+	{
+		$this->data= $context;
+		$this->run();
+		return true;
 	}
 }

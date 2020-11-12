@@ -1,20 +1,25 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
--- http://www.phpmyadmin.net
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 20, 2015 at 10:57 AM
--- Server version: 5.5.41-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.7
+-- Host: 127.0.0.1
+-- Generation Time: Nov 12, 2020 at 03:36 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `mooc`
+--
 
 -- --------------------------------------------------------
 
@@ -22,15 +27,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `courses`
 --
 
-CREATE TABLE IF NOT EXISTS `courses` (
-  `course_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `courses` (
+  `course_id` tinyint(4) NOT NULL,
   `course_name` varchar(50) NOT NULL,
   `course_description` text NOT NULL,
   `course_recommendation_count` mediumint(6) NOT NULL,
   `course_access_count` mediumint(9) NOT NULL,
-  `course_image` varchar(20) NOT NULL,
-  PRIMARY KEY (`course_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+  `course_image` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `courses`
@@ -45,13 +49,13 @@ INSERT INTO `courses` (`course_id`, `course_name`, `course_description`, `course
 (6, 'Marine Biology', 'The scientific study of organisms in the ocean or other marine or brackish bodies of water. Given that in biology many phyla, families and genera have some species that live in the sea and others that live on land, marine biology classifies species based on the environment rather than on taxonomy.', 42, 974, 'marine.jpg'),
 (7, 'Introduction to Astronomy', 'Introduction to Astronomy provides a quantitative introduction to the physics of the solar system, stars, the interstellar medium, the galaxy, and the universe, as determined from a variety of astronomical observations and models.', 342, 6367, 'astronomy.jpg'),
 (8, 'Robotics', 'Robotics is the branch of mechanical engineering, electrical engineering and computer science that deals with the design, construction, operation, and application of robots, as well as computer systems for their control, sensory feedback, and information processing.', 12, 342, 'robotics.jpg'),
-(9, 'Artificial Intelligence', 'Artificial intelligence (AI) is the intelligence exhibited by machines or software. It is an academic field of study which studies the goal of creating intelligence. Major AI researchers and textbooks define this field as "the study and design of intelligent agents."', 32767, 312, 'ai.jpg'),
+(9, 'Artificial Intelligence', 'Artificial intelligence (AI) is the intelligence exhibited by machines or software. It is an academic field of study which studies the goal of creating intelligence. Major AI researchers and textbooks define this field as \"the study and design of intelligent agents.\"', 32767, 312, 'ai.jpg'),
 (10, 'Networks & Security', 'Network security consists of the provisions and policies adopted by a network administrator to prevent and monitor unauthorized access, misuse, modification, or denial of a computer network and network-accessible resources.', 73455, 244, 'networksecurity.jpg'),
 (11, 'Biochemistry of Human Disease', 'Specifically designed for upper-division undergraduate or graduate students in life science or pre-medical majors including dentistry or pharmacology, who are required to take a biochemistry or medical biochemistry course.', 6980, 634, 'humandisease.jpg'),
 (12, 'Introduction to Genetics', '', 45678, 324, 'genetics.jpg'),
 (13, 'Basic Mathematics', 'Introduces basic algebraic, geometric, and two dimensional graphing techniques and applications. The course is designed primarily for students in specific vocational or technical programs.', 3452, 776, 'mathematics.jpg'),
 (14, 'Introduction to Electronics', 'Getting started with basic electronics is easier than you might think. This course will demystify the basics of electronics so that anyone with an interest in building circuits can hit the ground running. ', 54334, 5443, 'electronics.jpg'),
-(15, 'Object-Oriented Programming', 'Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods', 45443, 4657, 'oop.jpg'),
+(15, 'Object-Oriented Programming', 'Object-oriented programming (OOP) is a programming paradigm based on the concept of \"objects\", which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods', 45443, 4657, 'oop.jpg'),
 (16, 'Computational Physics', 'Computational physics is the study and implementation of numerical analysis to solve problems in physics for which a quantitative theory already exists.', 67664, 423, 'physics.jpg');
 
 -- --------------------------------------------------------
@@ -60,11 +64,9 @@ INSERT INTO `courses` (`course_id`, `course_name`, `course_description`, `course
 -- Table structure for table `course_instructor`
 --
 
-CREATE TABLE IF NOT EXISTS `course_instructor` (
+CREATE TABLE `course_instructor` (
   `course_id` tinyint(4) NOT NULL,
-  `instructor_id` tinyint(4) NOT NULL,
-  PRIMARY KEY (`course_id`,`instructor_id`),
-  KEY `instructor_id` (`instructor_id`)
+  `instructor_id` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -95,11 +97,10 @@ INSERT INTO `course_instructor` (`course_id`, `instructor_id`) VALUES
 -- Table structure for table `faculty_department`
 --
 
-CREATE TABLE IF NOT EXISTS `faculty_department` (
-  `faculty_dept_id` tinyint(4) NOT NULL AUTO_INCREMENT,
-  `faculty_dept_name` varchar(60) NOT NULL,
-  PRIMARY KEY (`faculty_dept_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+CREATE TABLE `faculty_department` (
+  `faculty_dept_id` tinyint(4) NOT NULL,
+  `faculty_dept_name` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `faculty_department`
@@ -119,10 +120,9 @@ INSERT INTO `faculty_department` (`faculty_dept_id`, `faculty_dept_name`) VALUES
 -- Table structure for table `faculty_dept_courses`
 --
 
-CREATE TABLE IF NOT EXISTS `faculty_dept_courses` (
+CREATE TABLE `faculty_dept_courses` (
   `faculty_dept_id` tinyint(4) NOT NULL,
-  `course_id` tinyint(4) NOT NULL,
-  PRIMARY KEY (`faculty_dept_id`,`course_id`)
+  `course_id` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -154,11 +154,10 @@ INSERT INTO `faculty_dept_courses` (`faculty_dept_id`, `course_id`) VALUES
 -- Table structure for table `instructors`
 --
 
-CREATE TABLE IF NOT EXISTS `instructors` (
-  `instructor_id` tinyint(4) NOT NULL AUTO_INCREMENT,
-  `instructor_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`instructor_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+CREATE TABLE `instructors` (
+  `instructor_id` tinyint(4) NOT NULL,
+  `instructor_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `instructors`
@@ -197,12 +196,11 @@ INSERT INTO `instructors` (`instructor_id`, `instructor_name`) VALUES
 -- Table structure for table `streams`
 --
 
-CREATE TABLE IF NOT EXISTS `streams` (
-  `stream_id` smallint(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `streams` (
+  `stream_id` smallint(6) NOT NULL,
   `stream_name` varchar(60) NOT NULL,
-  `stream_image` varchar(50) NOT NULL,
-  PRIMARY KEY (`stream_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+  `stream_image` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `streams`
@@ -226,11 +224,9 @@ INSERT INTO `streams` (`stream_id`, `stream_name`, `stream_image`) VALUES
 -- Table structure for table `stream_instructor`
 --
 
-CREATE TABLE IF NOT EXISTS `stream_instructor` (
+CREATE TABLE `stream_instructor` (
   `stream_id` smallint(4) NOT NULL,
-  `instructor_id` tinyint(4) NOT NULL,
-  PRIMARY KEY (`stream_id`,`instructor_id`),
-  KEY `instructor_id` (`instructor_id`)
+  `instructor_id` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -238,7 +234,6 @@ CREATE TABLE IF NOT EXISTS `stream_instructor` (
 --
 
 INSERT INTO `stream_instructor` (`stream_id`, `instructor_id`) VALUES
-(10, 1),
 (1, 17),
 (2, 18),
 (3, 19),
@@ -247,7 +242,8 @@ INSERT INTO `stream_instructor` (`stream_id`, `instructor_id`) VALUES
 (6, 22),
 (7, 23),
 (8, 24),
-(9, 25);
+(9, 25),
+(10, 1);
 
 -- --------------------------------------------------------
 
@@ -255,16 +251,18 @@ INSERT INTO `stream_instructor` (`stream_id`, `instructor_id`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  PRIMARY KEY (`email`)
+  `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
+
+INSERT INTO `users` (`name`, `email`, `password`) VALUES
+('Test User', 'tester@comp3170.com', 'Testpassw0rd');
 
 -- --------------------------------------------------------
 
@@ -272,12 +270,99 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Table structure for table `user_courses`
 --
 
-CREATE TABLE IF NOT EXISTS `user_courses` (
+CREATE TABLE `user_courses` (
   `email` varchar(100) NOT NULL,
-  `course_id` tinyint(4) NOT NULL,
-  PRIMARY KEY (`email`,`course_id`),
-  KEY `course_id` (`course_id`)
+  `course_id` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `courses`
+--
+ALTER TABLE `courses`
+  ADD PRIMARY KEY (`course_id`);
+
+--
+-- Indexes for table `course_instructor`
+--
+ALTER TABLE `course_instructor`
+  ADD PRIMARY KEY (`course_id`,`instructor_id`),
+  ADD KEY `instructor_id` (`instructor_id`);
+
+--
+-- Indexes for table `faculty_department`
+--
+ALTER TABLE `faculty_department`
+  ADD PRIMARY KEY (`faculty_dept_id`);
+
+--
+-- Indexes for table `faculty_dept_courses`
+--
+ALTER TABLE `faculty_dept_courses`
+  ADD PRIMARY KEY (`faculty_dept_id`,`course_id`);
+
+--
+-- Indexes for table `instructors`
+--
+ALTER TABLE `instructors`
+  ADD PRIMARY KEY (`instructor_id`);
+
+--
+-- Indexes for table `streams`
+--
+ALTER TABLE `streams`
+  ADD PRIMARY KEY (`stream_id`);
+
+--
+-- Indexes for table `stream_instructor`
+--
+ALTER TABLE `stream_instructor`
+  ADD PRIMARY KEY (`stream_id`,`instructor_id`),
+  ADD KEY `instructor_id` (`instructor_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `user_courses`
+--
+ALTER TABLE `user_courses`
+  ADD PRIMARY KEY (`email`,`course_id`),
+  ADD KEY `course_id` (`course_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `course_id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `faculty_department`
+--
+ALTER TABLE `faculty_department`
+  MODIFY `faculty_dept_id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `instructors`
+--
+ALTER TABLE `instructors`
+  MODIFY `instructor_id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `streams`
+--
+ALTER TABLE `streams`
+  MODIFY `stream_id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -287,22 +372,23 @@ CREATE TABLE IF NOT EXISTS `user_courses` (
 -- Constraints for table `course_instructor`
 --
 ALTER TABLE `course_instructor`
-  ADD CONSTRAINT `course_instructor_ibfk_2` FOREIGN KEY (`instructor_id`) REFERENCES `instructors` (`instructor_id`),
-  ADD CONSTRAINT `course_instructor_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`);
+  ADD CONSTRAINT `course_instructor_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
+  ADD CONSTRAINT `course_instructor_ibfk_2` FOREIGN KEY (`instructor_id`) REFERENCES `instructors` (`instructor_id`);
 
 --
 -- Constraints for table `stream_instructor`
 --
 ALTER TABLE `stream_instructor`
-  ADD CONSTRAINT `stream_instructor_ibfk_2` FOREIGN KEY (`instructor_id`) REFERENCES `instructors` (`instructor_id`),
-  ADD CONSTRAINT `stream_instructor_ibfk_1` FOREIGN KEY (`stream_id`) REFERENCES `streams` (`stream_id`);
+  ADD CONSTRAINT `stream_instructor_ibfk_1` FOREIGN KEY (`stream_id`) REFERENCES `streams` (`stream_id`),
+  ADD CONSTRAINT `stream_instructor_ibfk_2` FOREIGN KEY (`instructor_id`) REFERENCES `instructors` (`instructor_id`);
 
 --
 -- Constraints for table `user_courses`
 --
 ALTER TABLE `user_courses`
-  ADD CONSTRAINT `user_courses_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
-  ADD CONSTRAINT `user_courses_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`);
+  ADD CONSTRAINT `user_courses_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`),
+  ADD CONSTRAINT `user_courses_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

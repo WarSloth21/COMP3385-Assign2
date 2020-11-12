@@ -12,4 +12,9 @@ class StreamModel extends Observable_Model
     {
         return [];
     }
+
+    public function find(string $tablename, array $fields)
+    {
+        
+    }
 }

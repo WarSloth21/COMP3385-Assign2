@@ -1,13 +1,20 @@
 <?php
-class SignUpModel extends Haa\framework\Observable_Model
+use Haa\framework\Observable_Model;
+
+class SignUpModel extends Observable_Model
 {
-    public function getAll(): array
+    public function findAll(): array
     {
         return[];
     }
 
-    public function getRecord(string $id): array
+    public function findRecord(string $id): array
     {
         return [];
+    }
+
+    public function find(string $tablename, array $fields)
+    {
+        
     }
 }

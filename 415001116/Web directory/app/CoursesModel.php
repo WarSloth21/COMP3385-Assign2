@@ -49,4 +49,9 @@ class CoursesModel extends Observable_Model
 		
 	}
 
+	public function find(string $tablename, array $fields)
+    {
+        
+    }
+
 }

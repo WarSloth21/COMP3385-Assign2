@@ -3,6 +3,7 @@ namespace app\handlers;
 use Haa\framework\CommandContext;
 use Haa\framework\PageController_Command_Abstract;
 use Haa\framework\View;
+use Haa\framework\Validator;
 
 class LoginController extends PageController_Command_Abstract
 {
@@ -18,14 +19,44 @@ class LoginController extends PageController_Command_Abstract
 		$this->makeView($v);
 		
 		$this->model->attach($this->view);
-		//depending on what is needed
-		$data = $this->model->findAll();
-		//Tells MOdel to update the changed data
-		$this->model->updateThechangedData($data);
+		// check to see if the user has posted data to the form
+ if (empty($_POST)) {
+    //Check to see is user is Logged in
+    if(isset($_SESSION["authenticated_user"]))
+    {
+       header('Location:profile.tpl.php');
+    }
+    //Else Show Login Page
+    $v->setTemplate(TPL_DIR . '/login.tpl.php');
+    $this->makeView($v);
+ }
+ // data was posted so we must do the following
+else {
+    // 1. Validate the data if JavaScript didn't do it
+    $validator = new Validator($_POST);
+    $result = $validator->validate();
+// 2. If the data is invalid, get and display error messages
+    if (!$result) { // validation failed, errors were generated
+        $errors = $validator->getErrors();  // an array of strings
+        $v->setTemplate(TPL_DIR . '/login.tpl.php');
+        $v->addVar('errors', $errors);
+        $this->makeView($v);
+    }
+// 3. If the data is valid, check the database and go to next page
+else { 
+    if( $this->model->find('mooc', $_POST))
+    {
+         //$_SESSION["natl_id"] = $_POST['natl_id'];
+        
+            header('Location:profile.tpl.php');
+     
+ }
 		
 		// tell model to contact its observers
 		$this->model->notify();
 	}
+}
+}
 
 	public function execute(CommandContext $context): bool
 	{

@@ -38,6 +38,11 @@ class IndexModel extends Observable_Model
 		// next stage get the instructiors
 		
 	}
+
+	public function find(string $tablename, array $fields)
+    {
+        
+    }
 	
 	public function findRecord(string $id): array
 	{
