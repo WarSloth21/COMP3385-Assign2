@@ -6,17 +6,14 @@ namespace Haa\framework;
 
 class RequestHandlerFactory implements RequestHandlerFactory_Interface
 {
-    public static function makeRequestHandler(string $request = 'index'): PageController_Command_Abstract
+    public static function makeRequestHandler(string $action = 'Default'): PageController_Command_Abstract
     {
-        if (preg_match('/\W/', $request)) 
+        if (preg_match('/\W/', $action)) 
         {
             throw new \Exception("illegal characters in request");
         }
 
-        $class = "App\\handlers\\" . UCFirst(strtolower($request)) . "Controller";
-        //$class = __NAMESPACE__ . "\\handlers\\" . UCFirst(strtolower($request)) . "Controller” ;
-        //$class = "App\\handlers\\".UCFirst(strtolower($request)) . " $request" ;
-       
+        $class = "app\\handlers\\" . UCFirst(strtolower($action)) . "Controller";
 
 
         if (!class_exists($class))

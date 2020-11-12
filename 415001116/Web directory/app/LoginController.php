@@ -1,5 +1,5 @@
 <?php
-namespace App\handlers;
+namespace app\handlers;
 use Haa\framework\CommandContext;
 use Haa\framework\PageController_Command_Abstract;
 use Haa\framework\View;

@@ -1,13 +1,15 @@
 <?php
 namespace Haa\framework;
-use App\handlers\LoginController;
+use app\handlers;
 
 
 class FrontController extends FrontController_Abstract
 {
+    private $context;
+
     private function __construct()
     {
-
+        $this->context = new CommandContext();
     }
 
     private function __clone()
@@ -30,21 +32,46 @@ class FrontController extends FrontController_Abstract
 
     protected function init()
     {
-       
-        
+      
     }
 
     protected function handleRequest()
     {
-        $context = new CommandContext();
+        /**
+         * 
+                * $context = new CommandContext();
 
-       $request = (string) $context->get('controller');
-        $handler = RequestHandlerFactory::makeRequestHandler();
+            //$request = (string) $context->get('controller');
+                $req = $context->get('get','controller');
+                $handler = RequestHandlerFactory::makeRequestHandler();
 
-        if ($handler->execute($context) == false)
+                if ($handler->execute($context) == false)
+                {
+                    //do error handling like show opps something wrong page
+                    echo "ERROR";
+                }
+                
+                echo $req;
+         */
+       // $test = $_GET['url'];
+        //$action = $this->context->get('controller');
+        $test = $_REQUEST['controller'];
+        if ($test == NULL)
         {
-            //do error handling like show opps something wrong page
+            $test =  "index" ;
         }
+        else{
+            
+        }
+        
+        $cmd = RequestHandlerFactory::makeRequestHandler($test);
+
+        if (! $cmd->execute($this->context))
+        {
+            
+        }
+        
+        
         
     }
 }

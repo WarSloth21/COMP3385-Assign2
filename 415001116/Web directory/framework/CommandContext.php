@@ -3,7 +3,9 @@ namespace Haa\framework;
 
 class CommandContext
 {
-    
+    private $params = [];
+    private $error = "";
+
     public function add(string $key, $val)
     {
         
@@ -11,7 +13,10 @@ class CommandContext
     
     public function get(string $key)
     {
-        
+        if (isset($this->params[$key]))
+        {
+            return $this->params[$key];
+        }
     }
 
     public function setError($error)
@@ -21,6 +26,6 @@ class CommandContext
 
     public function getError () :array
     {
-        return [];
+        return $this->error;
     }
 }

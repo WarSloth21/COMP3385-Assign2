@@ -1,8 +1,9 @@
 <?php
-namespace App\handlers;
+namespace app\handlers;
 use Haa\framework\CommandContext;
 use Haa\framework\PageController_Command_Abstract;
 use Haa\framework\View;
+
 
 
 class IndexController extends PageController_Command_Abstract
@@ -26,6 +27,8 @@ class IndexController extends PageController_Command_Abstract
 		
 		// tell model to contact its observers
 		$this->model->notify();
+
+		
 		
 	}
 

@@ -4,17 +4,17 @@ use Haa\framework\CommandContext;
 use Haa\framework\PageController_Command_Abstract;
 use Haa\framework\View;
 
-class CoursesController extends PageController_Command_Abstract
+class StreamsController extends PageController_Command_Abstract
 {
 	private $data = null;
 	public function run()
 	{
 		$v = new View();
-		$v->setTemplate(TPL_DIR . '/courses.tpl.php');
+		$v->setTemplate(TPL_DIR . '/streams.tpl.php');
 		
 		
 		//Set Model and View
-		$this->makeModel(new \CoursesModel());
+		$this->makeModel(new \StreamModel());
 		$this->makeView($v);
 		
 		$this->model->attach($this->view);
